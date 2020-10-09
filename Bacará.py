@@ -10,7 +10,11 @@ fichas = 100
 while fichas != 0:
     #Apostas
     aposta = int(input("Quanto você quer apostar? "))
+    if aposta == 0:   #Nao pode apostar 0
+        break
     aposta_1 = input("No que voce aposta?(empate,jogador ou banco) ")
+    if aposta_1 != "empate" and aposta_1 != "jogador" and aposta_1 != "banco":  #deve apostar em uma das opções
+        break
     if aposta != 0:
         #Jogador
         cartaj_1 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, 10]*4)
@@ -21,6 +25,12 @@ while fichas != 0:
         #somas 
         somaj = cartaj_1 + cartaj_2
         somab = cartab_1 + cartab_2
+        if somaj > 10:
+            #mudança de tipo
+            somaj = str(somaj)
+            somaj = somaj[-1]
+            somaj = int(somaj)
+            
         #condicoes de acabar de primeira
         if somaj == 8 or 9 or somab == 8 or 9:
             if somaj > somab:
