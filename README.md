@@ -1,2 +1,4 @@
-# Bacar-simplificado
-Exercício programa - Bacará simplificado - Ricardo Ribeiro Rodrigues
+# Bacará-simplificado.
+# EP - Design de Software.
+Exercício programa - Bacará simplificado - Ricardo Ribeiro Rodrigues.
+#Ricardo Ribeiro Rodrigues.
