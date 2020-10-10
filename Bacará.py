@@ -8,6 +8,7 @@ Q = 0
 K = 0 
 fichas = 100
 while fichas != 0:
+    print(f"Você tem {fichas} fichas")
     #Apostas
     aposta = int(input("Quanto você quer apostar? "))
     if aposta == 0:   #Nao pode apostar 0
@@ -25,24 +26,44 @@ while fichas != 0:
         #somas 
         somaj = cartaj_1 + cartaj_2
         somab = cartab_1 + cartab_2
-        if somaj > 10:
-            #mudança de tipo
-            somaj = str(somaj)
-            somaj = somaj[-1]
-            somaj = int(somaj)
-            
-        #condicoes de acabar de primeira
-        if somaj == 8 or 9 or somab == 8 or 9:
-            if somaj > somab:
-                if aposta_1 == "jogador":
-                    print("Voce venceu!")
-                    fichas += aposta
-            if somaj == somab:
-                if aposta_1 == "empate":
-                    print("Voce venceu!")
-                    fichas += aposta*8
-            if somab > somaj:
-                if aposta_1 == "banco":
-                    print("Voce venceu!")
-                    fichas += aposta*0.95
-        #De comprar cartas
+        while jogo:
+            if somaj > 10:
+                #mudança de tipo do jogador para ajustar a soma (transformar decimais).
+                somaj = str(somaj)
+                somaj = somaj[-1]
+                somaj = int(somaj)
+            elif somab > 10:
+                #mudança de tipo do banco para ajustar a soma (transformar decimais).
+                somab = str(somab)
+                somab = somab[-1]
+                somab = int(somab)      
+            #condicoes de acabar de primeira
+            if somaj == 8 or somaj == 9 or somab == 8 or somab == 9:
+                if somaj > somab:
+                    if aposta_1 == "jogador":  #condição onde o j ganha
+                        print("Voce venceu!")
+                        fichas += aposta
+                        jogo = False
+                    if aposta_1 != "banco":    #condição onde o j perde
+                        print("Não foi dessa vez!")
+                        fichas -= aposta
+                        jogo = False
+                if somaj == somab:
+                    if aposta_1 == "empate":  #condição onde o j ganha
+                        print("Voce venceu!")
+                        fichas += aposta*8
+                        jogo = False
+                    if aposta_1 != "empate":  #condição onde o j perde
+                        print("Não foi dessa vez!")
+                        fichas -= aposta
+                        jogo = False
+                if somab > somaj:
+                    if aposta_1 == "banco":   #condição onde o j ganha
+                        print("Voce venceu!")
+                        fichas += aposta*0.95
+                        jogo = False
+                    if aposta_1 != "banco":   #condição onde o j perde
+                        print("Não foi dessa vez!")
+                        fichas -= aposta
+                        jogo = False
+            #De comprar cartas
