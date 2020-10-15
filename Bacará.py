@@ -6,7 +6,9 @@ A = 1
 J = 0
 Q = 0
 K = 0
-dez = 0 
+dez = 0
+#Baralhos usados.
+baralhos = [A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4*8   #8 baralhos  
 fichas = 100
 while fichas != 0:
     print(f"Você tem {fichas} fichas")
@@ -19,11 +21,11 @@ while fichas != 0:
         break
     if aposta != 0:
         #Jogador
-        cartaj_1 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
-        cartaj_2 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
+        cartaj_1 = rnd.choice(baralhos)
+        cartaj_2 = rnd.choice(baralhos)
         #Banco
-        cartab_1 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
-        cartab_2 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
+        cartab_1 = rnd.choice(baralhos)
+        cartab_2 = rnd.choice(baralhos)
         #somas iniciais
         somab = cartab_1 + cartab_2
         somaj = cartaj_1 + cartaj_2
@@ -39,7 +41,7 @@ while fichas != 0:
             if somaj >= 10:
                 #mudança de tipo do jogador para ajustar a soma (transformar decimais).
                 somaj = transforma_decimal(somaj) 
-            elif somab > 10:
+            if somab > 10:
                 #mudança de tipo do banco para ajustar a soma (transformar decimais).
                 somab = transforma_decimal(somab)      
             #condicoes de acabar de primeira            
@@ -48,7 +50,7 @@ while fichas != 0:
                 if somaj > somab:
                     if aposta_1 == "jogador":  #condição onde o j ganha
                         print("Voce venceu!")
-                        fichas += aposta
+                        fichas += aposta - aposta*0.0124   #1.24% de comissao
                         jogo = False
                     if aposta_1 != "jogador":
                         print("Não foi dessa vez!")
@@ -58,7 +60,7 @@ while fichas != 0:
                 if somaj == somab:
                     if aposta_1 == "empate":  #condição onde o j ganha
                         print("Voce venceu!")
-                        fichas += aposta*8
+                        fichas += aposta*8 - aposta*0.1436   #14.36% de comissao  
                         jogo = False
                     if aposta_1 != "empate":    #condição onde o j perde
                         print("Não foi dessa vez!")
@@ -68,7 +70,7 @@ while fichas != 0:
                 if somab > somaj:
                     if aposta_1 == "banco":   #condição onde o j ganha
                         print("Voce venceu!")
-                        fichas += aposta*0.95
+                        fichas += aposta*0.95 - aposta*0.0106  #1.06% de comissao
                         jogo = False
                     if aposta_1 != "banco":   #condição onde o j perde
                         print("Não foi dessa vez!")
@@ -78,7 +80,7 @@ while fichas != 0:
             if somaj == somab:
                 if aposta_1 == "empate":  #condição onde o j ganha
                     print("Voce venceu!")
-                    fichas += aposta*8
+                    fichas += aposta*8 - aposta*0.1436   #14.36% de comissao
                     jogo = False
                 if aposta_1 != "empate":
                     print("Não foi dessa vez!")
@@ -87,10 +89,10 @@ while fichas != 0:
             #De comprar cartas
                #jogador compra.
             if somaj <= 5:
-                carta_3 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
+                carta_3 = rnd.choice(baralhos)
                 somaj += carta_3
                 #banco compra.
             if somab <= 5:
-                carta_3 = rnd.choice([A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4)
+                carta_3 = rnd.choice(baralhos)
                 somab += carta_3
             
