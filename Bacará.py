@@ -89,10 +89,27 @@ while fichas != 0:
             #De comprar cartas
                #jogador compra.
             if somaj <= 5:
-                carta_3 = rnd.choice(baralhos)
-                somaj += carta_3
-                #banco compra.
-            if somab <= 5:
-                carta_3 = rnd.choice(baralhos)
-                somab += carta_3
-            
+                carta_3j = rnd.choice(baralhos)
+                somaj += carta_3j
+                #regras avancadas para o banco comprar.
+            def terceira_carta_b(somaj,somab):
+                if ((somaj <= 5) == False):  #se o jogador nao recebeu
+                    if somab <= 5:
+                        carta_3b = rnd.choice(baralhos)
+                        return carta_3b 
+                if (somaj <= 5) == True and somab <= 5:   #se o jogador recebeu
+                    if carta_3j == 8 and somab == 3:  
+                        #nao recebe
+                        return 0                   
+                    if somab == 4 and (carta_3j == 0 or carta_3j == 1 or carta_3j == 8 or carta_3j == 9):
+                        #nao recebe
+                        return 0
+                    if somab == 5 and (carta_3j == 0 or carta_3j == 1 or carta_3j == 2 or carta_3j == 3 or carta_3j == 8 or carta_3j == 9):
+                        #nao recebe
+                        return 0
+                    else:  #recebe
+                        carta_3b = rnd.choice(baralhos)
+                        return carta_3b
+            #se o valor for igual a 0, ele comprou uma carta de valor 0 ou nao comprou (Nao afeta a soma)
+            somab += terceira_carta_b(somaj,somab)
+
