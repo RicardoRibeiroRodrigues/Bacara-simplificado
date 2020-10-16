@@ -1,6 +1,12 @@
 #imports
 import random as rnd
 
+#função a ser usada a depois.
+def transforma_decimal(soma):
+    soma = str(soma)
+    soma = soma[-1]
+    soma = int(soma)
+    return soma
 #Cartas
 A = 1
 J = 0
@@ -29,13 +35,8 @@ while fichas != 0:
         #somas iniciais
         somab = cartab_1 + cartab_2
         somaj = cartaj_1 + cartaj_2
-        #função a ser usada a depois.
-        def transforma_decimal(soma):
-                    soma = str(soma)
-                    soma = soma[-1]
-                    soma = int(soma)
-                    return soma
         #começa a rodada
+        t = 0
         jogo = True
         while jogo: 
             if somaj >= 10:
@@ -45,7 +46,7 @@ while fichas != 0:
                 #mudança de tipo do banco para ajustar a soma (transformar decimais).
                 somab = transforma_decimal(somab)      
             #condicoes de acabar de primeira            
-            if somaj == 8 or somaj == 9 or somab == 8 or somab == 9:
+            if somaj == 8 or somaj == 9 or somab == 8 or somab == 9 or t == 1:
                 #somaj maior que somab
                 if somaj > somab:
                     if aposta_1 == "jogador":  #condição onde o j ganha
@@ -94,9 +95,11 @@ while fichas != 0:
                 #regras avancadas para o banco comprar.
             def terceira_carta_b(somaj,somab):
                 if ((somaj <= 5) == False):  #se o jogador nao recebeu
-                    if somab <= 5:
+                    if somab <= 5:  #se a soma é menor ou igual a 5
                         carta_3b = rnd.choice(baralhos)
-                        return carta_3b 
+                        return carta_3b
+                    else:   #se não é (para nao dar none)
+                        return 0 
                 if (somaj <= 5) == True and somab <= 5:   #se o jogador recebeu
                     if carta_3j == 8 and somab == 3:  
                         #nao recebe
@@ -110,6 +113,10 @@ while fichas != 0:
                     else:  #recebe
                         carta_3b = rnd.choice(baralhos)
                         return carta_3b
+                else:
+                    return 0 
             #se o valor for igual a 0, ele comprou uma carta de valor 0 ou nao comprou (Nao afeta a soma)
             somab += terceira_carta_b(somaj,somab)
+            if jogo == True:
+                t += 1 #fechar o jogo
 
