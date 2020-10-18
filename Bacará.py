@@ -1,3 +1,6 @@
+# EP - Design de Software
+# Equipe: Ricardo Ribeiro Rodrigues
+# Data: 09/10/2020
 #imports
 import random as rnd
 #Cartas
@@ -11,8 +14,8 @@ baralhos = [A, Q, K, J, 2 , 3, 4, 5, 6, 7, 8, 9, dez]*4*8   #8 baralhos
 #jogadores
 n = int(input("Quantos jogadores serão?? "))
 #fichas iniciais
-fichas = [100]*n
-#testa para a rodada
+fichas = [1000]*n
+#teste para a rodada
 jogo = True 
 #funções a serem usadas depois.
 def transforma_decimal(soma):
@@ -72,7 +75,7 @@ def terceira_carta_b(somaj,somab):
     if ((somaj <= 5) == False):  #se o jogador nao recebeu
         if somab <= 5:  #se a soma é menor ou igual a 5
             carta_3b = rnd.choice(baralhos)
-            print('\033[33m' + f"banco recebe a carta: {carta_3b}" + '\033[0;0m')
+            print('\033[33m' + f"O banco recebe a 3° carta com valor de: {carta_3b}" + '\033[0;0m')
             return carta_3b
         else:   #se não é (para nao dar none)
             return 0 
@@ -88,25 +91,26 @@ def terceira_carta_b(somaj,somab):
             return 0
         else:  #recebe
             carta_3b = rnd.choice(baralhos)
-            print('\033[33m' + f"banco recebe a carta: {carta_3b}" + '\033[0;0m')
+            print('\033[33m' + f"O banco recebe a 3° carta com valor de: {carta_3b}" + '\033[0;0m')
             return carta_3b
     else:
         return 0 
 #Jogo em si
-while 0 not in fichas:
+while 0 not in fichas:  #Se acabar as fichas de algum dos players, acaba o jogo.
     i = 0
+    #print das fichas de todos os players.
     while i < n:
-        print('\033[34m' + f"O jogador {i+1} tem {fichas[i]:.4f} fichas" + '\033[0;0m')
+        print('\033[34m' + f"O jogador {i+1} tem {fichas[i]:.0f} fichas" + '\033[0;0m')  #fichas inteiras apenas.
         i += 1
     #Apostas
     i = 0
-    lista_apostas_num = [] #listas onde estarão as apostas numéricas de cada um dos jogadores
-    lista_apostas_ejb = [] #lista onde estarão em quem cada um dos jogadores apostou
+    lista_apostas_num = [] #listas onde estarão as apostas numéricas de cada um dos jogadores.
+    lista_apostas_ejb = [] #lista onde estarão em quem cada um dos jogadores apostou.
     while i < n:
         aposta = int(input('\033[35m' + f"Quanto o jogador {i+1} vai apostar? " + '\033[0;0m'))
         if aposta == 0 or aposta > fichas[i]:   #Nao pode apostar 0 nem mais do que tem.
             break
-        lista_apostas_num.append(aposta)
+        lista_apostas_num.append(aposta) 
         i += 1
     i = 0
     while i < n:
@@ -127,9 +131,9 @@ while 0 not in fichas:
     #começa a rodada
     t = 0
     jogo = True
-    #mudança de tipo do jogador para ajustar a soma (transformar decimais).
+    #Muda a soma do jogador para apenas o ultimo numero.
     somaj = transforma_decimal(somaj) 
-    #mudança de tipo do banco para ajustar a soma (transformar decimais).
+    #Muda a soma do banco para apenas o ultimo numero.
     somab = transforma_decimal(somab)
     #print das somas      
     print(f"a soma do jogador vale {somaj}")
@@ -144,11 +148,10 @@ while 0 not in fichas:
         #jogador comprar.
         if somaj <= 5:
             carta_3j = rnd.choice(baralhos)
-            print('\033[33m' + f"jogador recebe a carta: {carta_3j}" + '\033[0;0m')
+            print('\033[33m' + f"O jogador recebe a 3° carta com valor de: {carta_3j}" + '\033[0;0m')
             somaj += carta_3j
         #se o valor for igual a 0, ele comprou uma carta de valor 0 ou nao comprou (Nao afeta a soma)
         somab += terceira_carta_b(somaj,somab)
-        
         #transformação dos decimais
         #jogador
         somaj = transforma_decimal(somaj)
